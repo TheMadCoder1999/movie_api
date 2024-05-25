@@ -1,50 +1,125 @@
 const express = require('express');
-morgan = require('morgan');
+const morgan = require('morgan');
+
+const bodyParser = require('body-parser')
 
 const app = express();
 
-  // test
+app.use(bodyParser.json());
 
-  let topMovies = [
+  // test
+let user =[
     {
-        title: 'Alien',
-        director: 'Ridley Scott'
+        id: 1,
+        name: "Kin",
+        favoriteMovies: ["The Mummy"]
     },
     {
-        title: 'Aliens',
-        director: 'James Cameron'
+        id: 2,
+        name: "Joe",
+        favoriteMovies: ["Alien"]
+    }
+]
+  let movies = [
+    {
+        "Title": "Alien",
+        "Description": "The film follows the crew of the commercial space tug Nostromo, who, after coming across a mysterious derelict spaceship on an uncharted planetoid, find themselves up against a deadly and aggressive extraterrestrial loose within their vessel.",
+        "Genre": {
+            "Name":"Horror, Sci-Fi"
+        },
+        "Director": { 
+            "Name":"Ridley Scott"
+        },
     },
     {
-        title: 'The Mummy',
-        director: 'Stephen Sommers'
+        "Title": "Aliens",
+        "Description": "Set in the far future, it stars Sigourney Weaver as Ellen Ripley, the sole survivor of an alien attack on her ship. When communications are lost with a human colony on the moon where her crew first saw the alien creatures, Ripley agrees to return to the site with a unit of Colonial Marines to investigate.",
+        "Genre": {
+            "Name":"Action, Adventure"
+        },
+        "Director": { 
+            "Name":"James Cameron"
+        },
     },
     {
-        title: 'Starship Troopers',
-        director: 'Paul Verhoeven'
+        "Title": "The Mummy",
+        "Description": "The film follows adventurer Rick O'Connell as he travels to Hamunaptra, the City of the Dead, with librarian Evelyn Carnahan and her older brother Jonathan, where they accidentally awaken Imhotep, a cursed high priest with supernatural powers.",
+        "Genre": {
+            "Name":"Action, Adventure, Horror"
+        },
+        "Director": { 
+            "Name":"Stephen Sommers"
+        },
     },
     {
-        title: 'Battle: Los Angeles',
-        director: 'Jonathan Liebesman'
+        "Title": "Starship Troopers",
+        "Description": "Set in the 23rd century, the story follows teenager Johnny Rico and his friends serving in the military of the United Citizen Federation, an Earth world government engaged in interstellar war with an alien species of Arachnids.",
+        "Genre": {
+            "Name":"Science Fiction, Action"
+        },
+        "Director": { 
+            "Name":"Paul Verhoeven"
+        },
     },
     {
-        title: 'The Last Voyage of the Demeter',
-        director: 'André Øvredal'
+        "Title": "Battle: Los Angeles",
+        "Description": "The story follows a Marine staff sergeant played by Aaron Eckhart who leads a platoon of U.S. Marines, joined by other stranded military personnel, defending Los Angeles from alien invasion.",
+        "Genre": {
+            "Name":"Action, Adventue, Sci-Fi"
+        },
+        "Director": { 
+            "Name":"Jonathan Liebesman"
+        },
     },
     {
-        title: 'Avatar',
-        director: 'James Cameron'
+        "Title": "The Last Voyage of the Demeter",
+        "Description": "Its plot follows the doomed crew of the merchant ship Demeter led by Captain Elliot who attempt to survive the treacherous ocean voyage from Transylvania to London while being stalked by a legendary vampire known as Dracula",
+        "Genre": {
+            "Name":"Fantasy, Horror"
+        },
+        "Director": { 
+            "Name":"André Øvredal"
+        },
     },
     {
-        title: 'Inception',
-        director: 'Christoper Nolan'
+        "Title": "Avatar",
+        "Description": " It is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the valuable mineral unobtanium,[a] the room-temperature superconductor mineral. The expansion of the mining colony threatens the continued existence of a local tribe of Na'vi, a humanoid species indigenous to Pandora.",
+        "Genre": {
+            "Name":"Action, Adventure, Sci-Fi"
+        },
+        "Director": { 
+            "Name":"James Cameron"
+        },
     },
     {
-        title: 'Fearless',
-        director: 'Ronny Yu'
+        "Title": "Dungeons & Dragons: Honor Among Thieves",
+        "Description": "A charming thief and a band of unlikely adventurers embark on an epic quest to retrieve a lost relic, but things go dangerously awry when they run afoul of the wrong people.",
+        "Genre": {
+            "Name":"Adventure, Fantasy, Comedy"
+        },
+        "Director": { 
+            "Name":"Jonathan Goldstein"
+        },
     },
     {
-        title: 'The Karate Kid',
-        director: 'Harald Zwart'
+        "Title": "A",
+        "Description": "T",
+        "Genre": {
+            "Name":"H"
+        },
+        "Director": { 
+            "Name":"r"
+        },
+    },
+    {
+        "Title": "A",
+        "Description": "T",
+        "Genre": {
+            "Name":"H"
+        },
+        "Director": { 
+            "Name":"r"
+        },
     },
 ];
 // Express static function
@@ -61,7 +136,7 @@ app.get('/documentation', (req, res) => {
     res.sendFile('public/documentation.html', { root: __dirname });
 });
 app.get('/movies', (req, res) => {
-    res.json(topMovies);
+    res.json(movies);
 });
 
 // error handler
@@ -74,3 +149,125 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
 });
+
+// Assignment 2.5
+
+//Read
+app.get('/movies',(req, res) => {
+    res.status(200).json(movies);
+})
+
+//Read
+app.get('/movies/:title', (req, res) =>{
+    // const title = req.params.title;
+    const {title} = req.params;
+    const movies = movies.find (movie => movie.Title === title);
+
+    if (movies) {
+        res.status(200).json(movie);
+    } else {
+        res.status(400).send('no such movie')
+    }
+})
+
+//Read
+app.get('/movies/genre/:genreName', (req, res) =>{
+    // const title = req.params.title;
+    const {genreName} = req.params;
+    const genre = movies.find (movie => 
+            movie.Genre.Name === genreName).Genre;
+
+    if (movies) {
+        res.status(200).json(genre);
+    } else {
+        res.status(400).send('no such genre')
+    }
+})
+
+//Read
+app.get('/movies/directors/:directorName', (req, res) =>{
+    // const title = req.params.title;
+    const {directorName} = req.params;
+    const director = movies.find (movie => 
+            movie.Director.Name === directorName).Director;
+
+    if (movies) {
+        res.status(200).json(director);
+    } else {
+        res.status(400).send('no such director')
+    }
+})
+
+// Create
+app.post('/users', (req, res) => {
+    const newUser = req.body;
+
+    if (newUser.name) {
+        newUser.id = uuid.v4();
+        users.push(newUser);
+        res.status(201).json(newUser)
+    }else {
+        res.status(400).send('users need names')
+    }
+})
+
+// Update
+app.put('/users/:id', (req, res) => {
+    const {id} = req.params;
+    const updatedUser = req.body;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        user.name = updatedUser.name;
+        res.status(200).json(user);
+    }else {
+        res.status(400).send('no such user')
+    }
+})
+
+// Post
+app.post('/users/:id/:movieTitle', (req, res) => {
+    const {id, movieTitle} = req.params;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        user.favoriteMovies.push(movieTitle);
+        res.status(200).send(`${movieTitle}has been added to user 
+                ${id}'s array`);
+    }else {
+        res.status(400).send('no such user')
+    }
+})
+
+// Delete
+app.delete('/users/:id/:movieTitle', (req, res) => {
+    const {id, movieTitle} = req.params;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        user.favoriteMovies = user.favoriteMovies.filter
+            (title => title !== movieTitle);
+        res.status(200).send(`${movieTitle}has been removed from user 
+                ${id}'s array`);
+    }else {
+        res.status(400).send('no such user')
+    }
+})
+
+// Delete
+app.delete('/users/:id', (req, res) => {
+    const {id} = req.params;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        users = users.filter (user => user.id != id);
+        res.status(200).send(`user ${id} has been deleted`);
+    }else {
+        res.status(400).send('no such user')
+    }
+})
+// localhost:8080/movies/Alien
