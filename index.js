@@ -55,7 +55,7 @@ let user =[
         "Title": "Starship Troopers",
         "Description": "Set in the 23rd century, the story follows teenager Johnny Rico and his friends serving in the military of the United Citizen Federation, an Earth world government engaged in interstellar war with an alien species of Arachnids.",
         "Genre": {
-            "Name":"Science Fiction, Action"
+            "Name":"Sci-Fi, Action"
         },
         "Director": { 
             "Name":"Paul Verhoeven"
@@ -73,7 +73,7 @@ let user =[
     },
     {
         "Title": "The Last Voyage of the Demeter",
-        "Description": "Its plot follows the doomed crew of the merchant ship Demeter led by Captain Elliot who attempt to survive the treacherous ocean voyage from Transylvania to London while being stalked by a legendary vampire known as Dracula",
+        "Description": "Its plot follows the doomed crew of the merchant ship Demeter led by Captain Elliot who attempt to survive the treacherous ocean voyage from Transylvania to London while being stalked by a legendary vampire known as Dracula.",
         "Genre": {
             "Name":"Fantasy, Horror"
         },
@@ -83,7 +83,7 @@ let user =[
     },
     {
         "Title": "Avatar",
-        "Description": " It is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the valuable mineral unobtanium,[a] the room-temperature superconductor mineral. The expansion of the mining colony threatens the continued existence of a local tribe of Na'vi, a humanoid species indigenous to Pandora.",
+        "Description": "It is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the valuable mineral unobtanium,[a] the room-temperature superconductor mineral. The expansion of the mining colony threatens the continued existence of a local tribe of Na'vi, a humanoid species indigenous to Pandora.",
         "Genre": {
             "Name":"Action, Adventure, Sci-Fi"
         },
@@ -102,23 +102,23 @@ let user =[
         },
     },
     {
-        "Title": "A",
-        "Description": "T",
+        "Title": "Jurassic Park",
+        "Description": "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
         "Genre": {
-            "Name":"H"
+            "Name":"Adventure"
         },
         "Director": { 
-            "Name":"r"
+            "Name":"Steven Spielberg"
         },
     },
     {
-        "Title": "A",
-        "Description": "T",
+        "Title": "The Thing",
+        "Description": "A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.",
         "Genre": {
-            "Name":"H"
+            "Name":"Horror"
         },
         "Director": { 
-            "Name":"r"
+            "Name":"John Carpenter"
         },
     },
 ];
@@ -270,4 +270,3 @@ app.delete('/users/:id', (req, res) => {
         res.status(400).send('no such user')
     }
 })
-// localhost:8080/movies/Alien
