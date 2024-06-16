@@ -280,6 +280,3 @@ app.delete('/users/:id', (req, res) => {
         res.status(400).send('no such user')
     }
 })
-
-///2.8 Assignment
-
