@@ -60,7 +60,7 @@ app.post('/users', async (req, res) => {
 
 // UPDATE
 // A user's info, by username
-app.put('/users/:Username', async (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
         $set:
         {
@@ -83,7 +83,7 @@ app.put('/users/:Username', async (req, res) => {
 
 // UPDATE
 // Add a movie to a user's list of favorites
-app.patch('/users/:Username/movies/:MovieID', async (req, res) => {
+app.patch('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.MovieID }
     },
@@ -100,7 +100,7 @@ app.patch('/users/:Username/movies/:MovieID', async (req, res) => {
 
 // DELETE
 // Delete a movie from a user's list of favorites
-app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.MovieID }
     },
@@ -116,7 +116,7 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
 
 // DELETE
 // Delete a user by username
-app.delete('/users/:Username', async (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
 
     await Users.findOneAndDelete({ Username: req.params.Username })
         .then((user) => {
@@ -138,7 +138,7 @@ app.get('/', (req, res) => {
 });
 
 // READ
-app.get('/movies', async (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Movies.find()
         .then((movies) => {
             res.status(201).json(movies);
@@ -150,7 +150,7 @@ app.get('/movies', async (req, res) => {
 });
 
 // READ
-app.get('/movies/:title', async (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', {session: false}), async (req, res) => {
 
     const title = req.params.title;
     const movie = await Movies.findOne({ Title: title });
@@ -164,7 +164,7 @@ app.get('/movies/:title', async (req, res) => {
 });
 
 // READ
-app.get('/movies/genre/:genreName', async (req, res) => {
+app.get('/movies/genre/:genreName', passport.authenticate('jwt', {session: false}), async (req, res) => {
     try {
         const genreName = req.params.genreName;
         const movie = await Movies.findOne({ 'Genre.Name': genreName });
@@ -181,7 +181,7 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 // READ
-app.get('/movies/directors/:directorName', async (req, res) => {
+app.get('/movies/directors/:directorName', passport.authenticate('jwt', {session: false}), async (req, res) => {
     try {
         const directorName = req.params.directorName;
         const movie = await Movies.findOne({ 'Director.Name': directorName });
@@ -198,7 +198,7 @@ app.get('/movies/directors/:directorName', async (req, res) => {
 });
 
 //READ
-app.get('/users', async (req, res) => {
+app.get('/users', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.find()
         .then((users) => {
             res.status(201).json(users);
@@ -210,7 +210,7 @@ app.get('/users', async (req, res) => {
 });
 
 //READ
-app.get('/users/:Username', async (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOne({ Username: req.params.Username })
         .then((user) => {
             res.json(user);
