@@ -17,6 +17,13 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+    let auth = require('./auth')(app);
+
+    const passport = require('passport');
+    require('./passport');
+
 // Express static function
 app.use(express.static('public'));
 
