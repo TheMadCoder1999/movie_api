@@ -17,6 +17,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const cors = require('cors');
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
     let auth = require('./auth')(app);
@@ -33,6 +36,7 @@ app.use(morgan('common'));
 //CREATE
 //Add a user
 app.post('/users', async (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
