@@ -86,26 +86,51 @@ app.post('/users',
 
 // UPDATE
 // A user's info, by username
-app.put('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, {
-        $set:
+app.put(
+    '/users/:Username',
+    passport.authenticate('jwt', { session: false }),
+    [
+      check('Username', 'Username is required').isLength({ min: 5 }),
+      check(
+        'Username',
+        'Username contains non alphanumeric characters - not allowed.'
+      ).isAlphanumeric(),
+      check('Password', 'Password is required').not().isEmpty(),
+      check('Email', 'Email does not appear to be valid').isEmail(),
+    ],
+    async (req, res) => {
+      // check the validation object for errors
+      let errors = validationResult(req);
+  
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+      // CONDITION TO CHECK ADDED HERE
+      if (req.user.Username !== req.params.Username) {
+        return res.status(400).send('Permission denied');
+      }
+      // CONDITION ENDS
+      await Users.findOneAndUpdate(
+        { Username: req.params.Username },
         {
+          $set: {
             Username: req.body.Username,
             Password: req.body.Password,
             Email: req.body.Email,
-            Birthday: req.body.Birthday
-        }
-    },
-        { new: true }) // This line makes sure that the updated document is returned
+            Birthday: req.body.Birthday,
+          },
+        },
+        { new: true }
+      ) // This line makes sure that the updated document is returned
         .then((updatedUser) => {
-            res.json(updatedUser);
+          res.json(updatedUser);
         })
         .catch((err) => {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        })
-
-});
+          console.log(err);
+          res.status(500).send('Error: ' + err);
+        });
+    }
+  );
 
 // UPDATE
 // Add a movie to a user's list of favorites
