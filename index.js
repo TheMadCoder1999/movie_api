@@ -39,11 +39,6 @@ app.use(express.static('public'));
 // Middleware
 app.use(morgan('common'));
 
-// READ
-app.get('/', (req, res) => {
-  res.send('Welcome to myFlix!');
-});
-
 //CREATE
 //Add a user
 app.post('/users',
@@ -191,9 +186,9 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), a
 });
 
 // READ
-// app.get('/', (req, res) => {
-//     res.send('Welcome to myFlix!');
-// });
+app.get('/', (req, res) => {
+    res.send('Welcome to myFlix!');
+});
 
 // READ
 app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => {
