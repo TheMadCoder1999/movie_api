@@ -1,3 +1,3 @@
 mongoimport --uri mongodb+srv://xaviersgbarnes:<PASSWORD>@xaviermovieapi.hjor8o9.mongodb.net/<DATABASE> --collection <COLLECTION> --type <FILETYPE> --file <FILENAME>
-mongoimport --jsonArray --uri mongodb+srv://xaviersgbarnes:Sugarglider4me@xaviermovieapi.hjor8o9.mongodb.net/xavierFlixDB --collection movies --type json --file "C:\Users\Xavier_SG\Downloads\Codeing\exercise 2.7\2.7movies.json"
-mongoimport --jsonArray --uri mongodb+srv://xaviersgbarnes:Sugarglider4me@xaviermovieapi.hjor8o9.mongodb.net/xavierFlixDB --collection users --type json --file "C:\Users\Xavier_SG\Downloads\Codeing\exercise 2.7\2.7users.json"
+mongoimport --jsonArray --uri mongodb+srv://xaviersgbarnes:Sugarglider4me@xaviermovieapi.hjor8o9.mongodb.net/test --collection movies --type json --file "C:\Users\Xavier_SG\Downloads\Codeing\exercise 2.7\2.7movies.json"
+mongoimport --jsonArray --uri mongodb+srv://xaviersgbarnes:Sugarglider4me@xaviermovieapi.hjor8o9.mongodb.net/test --collection users --type json --file "C:\Users\Xavier_SG\Downloads\Codeing\exercise 2.7\2.7users.json"
